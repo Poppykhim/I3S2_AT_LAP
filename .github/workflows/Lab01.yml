@@ -17,10 +17,26 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
-      - name: Compile and Run Tests
-        # This is the "Magic Line" that fixes your error
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Start Backend (online-shop)
+        working-directory: ./Lab01/online-shop
+        run: |
+          npm install
+          npm start & # Run in background
+
+      - name: Wait for Server
+        run: sleep 10 # Give the backend time to initialize
+
+      - name: Run Java Automation Tests
         working-directory: ./Lab01
         run: |
           mkdir -p bin
+          # Compile
           javac -d bin -cp "lib/*:src" src/lab01/*.java test/lab01/*.java
+
+          # Execute JUnit
           java -jar lib/junit-platform-console-standalone-1.13.0-M3.jar --class-path bin --scan-class-path

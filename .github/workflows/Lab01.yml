@@ -17,12 +17,10 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
-      - name: Run Lab 01 Tests
+      - name: Compile and Run Tests
+        # This is the "Magic Line" that fixes your error
         working-directory: ./Lab01
         run: |
           mkdir -p bin
-          # Compile: pointing to src/lab01 and test/lab01
           javac -d bin -cp "lib/*:src" src/lab01/*.java test/lab01/*.java
-
-          # Run: Using the exact standalone JAR name
           java -jar lib/junit-platform-console-standalone-1.13.0-M3.jar --class-path bin --scan-class-path

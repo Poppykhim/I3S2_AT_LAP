@@ -3,12 +3,11 @@ name: Lab 01 Automation
 on:
   push:
     paths:
-      - "Lab01/**" # Only run if files in Lab01 change
+      - "Lab01/**"
 
 jobs:
-  build:
+  test-lab01:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -18,14 +17,12 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
-      - name: Compile Code
-        # This tells GitHub to run the commands inside the Lab01 folder
+      - name: Run Lab 01 Tests
         working-directory: ./Lab01
         run: |
           mkdir -p bin
+          # Compile: pointing to src/lab01 and test/lab01
           javac -d bin -cp "lib/*:src" src/lab01/*.java test/lab01/*.java
 
-      - name: Run Tests
-        working-directory: ./Lab01
-        run: |
+          # Run: Using the exact standalone JAR name
           java -jar lib/junit-platform-console-standalone-1.13.0-M3.jar --class-path bin --scan-class-path

@@ -14,7 +14,7 @@ public class CartPage {
     }
 
     public boolean isItemInCart(String itemName) {
-        String xpath = String.format("//div[@class='inventory_item_name' and text()='%s']", itemName);
+        String xpath = String.format("//div[contains(@class, 'inventory_item_name') and text()='%s']", itemName);
         try {
             return driver.findElement(By.xpath(xpath)).isDisplayed();
         } catch (Exception e) {

@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
-      - run: npm ci
+      - run: npm install
       - name: Run Playwright API tests
         run: npx playwright test # webServer boots NestJS
       - name: Build Allure report

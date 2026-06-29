@@ -6,9 +6,13 @@ import com.lab03.pages.CheckoutPage;
 import com.lab03.pages.InventoryPage;
 import com.lab03.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class SwagLabsTest extends BaseTest {
 
@@ -57,6 +61,8 @@ public class SwagLabsTest extends BaseTest {
         
         // Navigate to Cart
         inventoryPage.clickCart();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("cart"));
         CartPage cartPage = new CartPage(driver);
         Assert.assertTrue(cartPage.isItemInCart(itemName), "Item should exist in the cart");
         

@@ -7,7 +7,7 @@
     <test name="Lab03 Automated Tests">
         <classes>
             <class name="com.lab03.UI.SwagLabsTest"/>
-            <class name="com.lab03.API.ReqResApiTest"/>
+            <class name="com.lab03.API.JsonPlaceholderApiTest"/>
         </classes>
     </test>
 </suite>

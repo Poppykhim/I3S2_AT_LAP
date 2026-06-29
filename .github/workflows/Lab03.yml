@@ -24,13 +24,7 @@ jobs:
 
       - name: Run Lab03 Tests
         working-directory: ./Lab03
-        run: |
-          # Install Chrome for Selenium UI tests
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-          
-          # Run tests
-          mvn clean test
+        run: mvn clean test
 
       - name: Publish Extent Test Report
         if: always()

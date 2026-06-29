@@ -2,7 +2,7 @@ name: CI – Build & Test
 
 on:
   push:
-    branches: ["Lab-03"]
+    branches: ["Lab03"]
   workflow_dispatch:          # allow manual runs from the Actions tab
 
 concurrency:

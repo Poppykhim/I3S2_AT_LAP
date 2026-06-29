@@ -1,0 +1,47 @@
+name: Lab 03 Automation CI
+
+on:
+  push:
+    paths:
+      - "Lab03/**"
+      - ".github/workflows/Lab03.yml"
+  workflow_dispatch:
+
+jobs:
+  test-lab03:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: "maven"
+
+      - name: Run Lab03 Tests
+        working-directory: ./Lab03
+        run: |
+          # Install Chrome for Selenium UI tests
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          
+          # Run tests
+          mvn clean test
+
+      - name: Publish Extent Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lab03-Extent-Report
+          path: Lab03/reports/
+
+      - name: Publish TestNG HTML Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lab03-TestNG-Reports
+          path: Lab03/target/surefire-reports/
